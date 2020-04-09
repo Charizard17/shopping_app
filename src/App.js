@@ -6,6 +6,10 @@ import { Container, Row, Col} from 'reactstrap';
 import { Route, Switch } from 'react-router-dom';
 import NotFound from "./NotFound";
 import CartList2 from "./CartList2";
+import alertify from "alertifyjs";
+import FormDemo1 from './FormDemo1';
+import FormDemo2 from './FormDemo2';
+
 
 
 export default class App extends Component {  
@@ -40,11 +44,13 @@ export default class App extends Component {
       newCart.push({product:product,quantity:1});
     }
     this.setState({cart:newCart});
+    alertify.success(product.productName + " added to cart.",2)
   };
 
   removeFromCart=(product)=>{
     let newCart = this.state.cart.filter(c=>c.product.id!==product.id)
     this.setState({cart:newCart})
+    alertify.error(product.productName + " removed from cart.",2)
   };
 
   render() {
@@ -79,6 +85,9 @@ export default class App extends Component {
                       cart={this.state.cart}
                     />
                   )} />
+                <Route exact path="/" component={Navi} />
+                <Route exact path="/form1" component={FormDemo1} />
+                <Route exact path="/form2" component={FormDemo2} />
                 <Route component={NotFound} />
 
               </Switch>
